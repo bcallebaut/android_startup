@@ -2,7 +2,10 @@ package be.belgiplast.dashboard;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import be.belgiplast.dashboard.dynamicMenu.DynamicMenu;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,8 +20,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Example of a call to a native method
-        TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
+        RelativeLayout tv = (RelativeLayout) findViewById(R.id.insert);
+        DynamicMenu mnu = new DynamicMenu(this);
+        mnu.setData(new Action[]{new ResourceAction("A",R.drawable.coach),new ResourceAction("B",R.drawable.advisor)});
+        tv.addView(mnu);
     }
 
     /**

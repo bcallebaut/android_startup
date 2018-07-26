@@ -15,12 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import be.belgiplast.dashboard.Action;
 import be.belgiplast.dashboard.R;
+import be.belgiplast.dashboard.ResourceAction;
 
 /**
  * TODO: document your custom view class.
  */
-public class DynamicMenu extends RelativeLayout implements MyRecyclerViewAdapter.ItemClickListener{
+public class DynamicMenu extends RelativeLayout{
     private String mExampleString; // TODO: use a default from R.string...
     private int mExampleColor = Color.RED; // TODO: use a default from R.color...
     private float mExampleDimension = 0; // TODO: use a default from R.dimen...
@@ -52,8 +54,7 @@ public class DynamicMenu extends RelativeLayout implements MyRecyclerViewAdapter
         recyclerView = (RecyclerView)findViewById(R.id.rv_dynamic_menu);
         int numberOfColumns = 2;
         recyclerView.setLayoutManager(new GridLayoutManager(context, numberOfColumns));
-        adapter = new MyRecyclerViewAdapter(context, new String[]{"a","b"});
-        adapter.setClickListener(this);
+        adapter = new MyRecyclerViewAdapter(context, new Action[]{new ResourceAction("A",R.drawable.coach),new ResourceAction("B",R.drawable.advisor)});
         recyclerView.setAdapter(adapter);
     }
 
@@ -86,15 +87,17 @@ public class DynamicMenu extends RelativeLayout implements MyRecyclerViewAdapter
     }
 
     private void invalidateTextPaintAndMeasurements() {
+        /*
         mTextPaint.setTextSize(mExampleDimension);
         mTextPaint.setColor(mExampleColor);
         mTextWidth = mTextPaint.measureText(mExampleString);
 
         Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
         mTextHeight = fontMetrics.bottom;
+        */
     }
 
-    public void setData(String[] mData) {
+    public void setData(Action[] mData) {
         adapter.setData(mData);
     }
 
@@ -203,10 +206,5 @@ public class DynamicMenu extends RelativeLayout implements MyRecyclerViewAdapter
      */
     public void setExampleDrawable(Drawable exampleDrawable) {
         mExampleDrawable = exampleDrawable;
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-
     }
 }

@@ -1,7 +1,9 @@
 package be.belgiplast.dashboard;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,7 +24,13 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         RelativeLayout tv = (RelativeLayout) findViewById(R.id.insert);
         DynamicMenu mnu = new DynamicMenu(this);
-        mnu.setData(new Action[]{new ResourceAction("A",R.drawable.coach),new ResourceAction("B",R.drawable.advisor)});
+        mnu.setData(new Action[]{new ResourceAction("Coach",R.drawable.coach){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,CoachMainActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        },new ResourceAction("B",R.drawable.advisor)});
         tv.addView(mnu);
     }
 
@@ -30,5 +38,5 @@ public class MainActivity extends AppCompatActivity {
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    public native String stringFromJNI();
+    //public native String stringFromJNI();
 }

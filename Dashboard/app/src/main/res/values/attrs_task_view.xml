@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="TaskView">
+        <attr name="tasksName" format="string" />
+        <attr name="taskDimension" format="dimension" />
+        <attr name="taskColor" format="color" />
+        <attr name="taskDrawable" format="color|reference" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tasks="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CoachMainActivity">
+
+    <LinearLayout
+        android:id="@+id/coach_insert"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <be.belgiplast.dashboard.coach.TaskView
+            android:id="@+id/backlog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            app:tasksName="BackLog" />
+
+        <be.belgiplast.dashboard.coach.TaskView
+            android:id="@+id/ongoing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            app:tasksName="Ongoing" />
+
+        <be.belgiplast.dashboard.coach.TaskView
+            android:id="@+id/finished"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="top"
+            app:tasksName="Finished" />
+    </LinearLayout>
+</LinearLayout>

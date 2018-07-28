@@ -1,42 +1,49 @@
 package be.belgiplast.dashboard;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
-import be.belgiplast.dashboard.coach.Task;
-import be.belgiplast.dashboard.coach.TaskView;
+import be.belgiplast.library.tasks.Task;
+import be.belgiplast.dashboard.tasks.EditTaskActivity;
+import be.belgiplast.library.tasks.TasksView;
 
-public class CoachMainActivity extends AppCompatActivity {
+public class CoachMainActivity extends FragmentActivity {
+    DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
+    ViewPager mViewPager;
 
-    private ViewGroup relativeLayout;
-    private TaskView backlog;
-    private TaskView ongoing;
-    private TaskView finished;
-    private int mCurrentX, mCurrentY;
-
-    PopupWindow[] popupWindows;
-    View[] popupViews;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_collection_demo);
+
+        // ViewPager and its adapters use support library
+        // fragments, so use getSupportFragmentManager.
+        mDemoCollectionPagerAdapter =
+                new DemoCollectionPagerAdapter(
+                        getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+
+        /*
         setContentView(R.layout.activity_coach_main);
 
         popupWindows = new PopupWindow[3];
         popupViews = new View[3];
 
         relativeLayout = (ViewGroup) findViewById(R.id.coach_insert);
-        backlog = (TaskView) findViewById(R.id.backlog);
-        ongoing = (TaskView) findViewById(R.id.ongoing);
-        finished = (TaskView) findViewById(R.id.finished);
+        backlog = (TasksView) findViewById(R.id.backlog);
+        ongoing = (TasksView) findViewById(R.id.ongoing);
+        finished = (TasksView) findViewById(R.id.finished);
 
         LayoutInflater layoutInflater1 = (LayoutInflater) backlog.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         popupViews[0] = layoutInflater1.inflate(R.layout.task_popup, null);
@@ -48,13 +55,8 @@ public class CoachMainActivity extends AppCompatActivity {
         popupWindows[1] = new PopupWindow(popupViews[1], RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         popupWindows[1].setOutsideTouchable(true);
 
-        popupWindows[0].setTouchInterceptor(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                popupWindows[0].dismiss();
-                return true;
-            }
-        });
+
+
         popupWindows[1].setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -63,7 +65,7 @@ public class CoachMainActivity extends AppCompatActivity {
             }
         });
 
-        backlog.setTaskListener(new TaskView.OnTaskSelectionListener() {
+        backlog.setTaskListener(new TasksView.OnTaskSelectionListener() {
             @Override
             public void taskSelected(Task task) {
                 int[] loc = new int[2];
@@ -72,7 +74,7 @@ public class CoachMainActivity extends AppCompatActivity {
                 popupWindows[0].showAtLocation(relativeLayout, Gravity.NO_GRAVITY, loc[0], loc[1]);
             }
         });
-        ongoing.setTaskListener(new TaskView.OnTaskSelectionListener() {
+        ongoing.setTaskListener(new TasksView.OnTaskSelectionListener() {
             @Override
             public void taskSelected(Task task) {
                 int[] loc = new int[2];
@@ -81,7 +83,29 @@ public class CoachMainActivity extends AppCompatActivity {
                 popupWindows[1].showAtLocation(relativeLayout, Gravity.NO_GRAVITY, loc[0], loc[1]);
             }
         });
+        Button btnEdit = (Button)popupViews[0].findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindows[0].dismiss();
+                Intent intent = new Intent(CoachMainActivity.this, EditTaskActivity.class);
+                intent.putExtra("taskId","blah"); //TODO :replace by actual task name
+                CoachMainActivity.this.startActivity(intent);
+            }
+        });
+        Button btnPromote= (Button)popupViews[0].findViewById(R.id.btnPromote);
+        btnPromote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindows[0].dismiss();
+                Intent intent = new Intent(CoachMainActivity.this, CollectionDemoActivity.class);
+                //intent.putExtra("taskId","blah"); //TODO :replace by actual task name
+                CoachMainActivity.this.startActivity(intent);
+            }
+        });
+        */
     }
+
 
 /*
 

@@ -16,8 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CoachMainActivity" />
-        <activity android:name=".tasks.EditTaskActivity"></activity>
+        <activity android:name=".CoachMainActivity" >
+
+        </activity>
+        <activity android:name=".tasks.EditTaskActivity" />
+        <activity android:name=".CoachTabActivity"></activity>
+        <activity android:name=".CollectionDemoActivity">
+            <!--intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter-->
+        </activity>
     </application>
 
 </manifest>

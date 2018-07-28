@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import be.belgiplast.dashboard.dynamicMenu.DynamicMenu;
+import be.belgiplast.library.Action;
+import be.belgiplast.library.ResourceAction;
+import be.belgiplast.library.dynamicMenu.DynamicMenu;
 
 public class MainActivity extends AppCompatActivity {
 

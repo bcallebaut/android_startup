@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coach_insert"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <be.belgiplast.library.tasks.TasksView
+        android:id="@+id/backlog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        app:tasksName="BackLog" />
+
+    <be.belgiplast.library.tasks.TasksView
+        android:id="@+id/ongoing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        app:tasksName="Ongoing" />
+
+    <be.belgiplast.library.tasks.TasksView
+        android:id="@+id/finished"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        app:tasksName="Finished" />
+</LinearLayout>
+

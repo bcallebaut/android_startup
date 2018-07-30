@@ -11,6 +11,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -110,6 +111,15 @@ public class TasksView extends RelativeLayout {
             });
             adapter = new TasksRecyclerViewAdapter(context, tasks);
             recyclerView.setAdapter(adapter);
+            this.setOnTouchListener(new OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (mListener != null)
+                        mListener.notaskSelected();
+                    return true;
+                }
+            });
             adapter.setItemClickListener(new TasksRecyclerViewAdapter.ItemClickListener() {
                 @Override
                 public void onItemClick(View view, Task task) {
@@ -173,5 +183,6 @@ public class TasksView extends RelativeLayout {
 
     public interface OnTaskSelectionListener{
         void taskSelected(Task task);
+        void notaskSelected();
     }
 }

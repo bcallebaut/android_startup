@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import be.belgiplast.dashboard.tasks.EditTaskActivity;
 import be.belgiplast.library.Action;
+import be.belgiplast.library.tasks.AbstractTask;
 import be.belgiplast.library.tasks.Task;
 import be.belgiplast.library.tasks.TaskList;
 import be.belgiplast.library.tasks.TasksView;
@@ -33,8 +34,7 @@ public class ScrumBoardFragment extends ScrumFragment<TaskList> {
     private Action promoteAction;
     private Action discardAction;
     private Action editAction;
-
-
+    private Action newAction;
 
     PopupWindow[] popupWindows;
     View[] popupViews;
@@ -65,6 +65,14 @@ public class ScrumBoardFragment extends ScrumFragment<TaskList> {
 
     public void setEditAction(Action editAction) {
         this.editAction = editAction;
+    }
+
+    public Action getNewAction() {
+        return newAction;
+    }
+
+    public void setNewAction(Action editAction) {
+        this.editAction = newAction;
     }
 
     @Override
@@ -114,6 +122,11 @@ public class ScrumBoardFragment extends ScrumFragment<TaskList> {
 
                 popupWindows[0].showAtLocation(relativeLayout, Gravity.NO_GRAVITY, loc[0], loc[1]);
             }
+
+            @Override
+            public void notaskSelected() {
+                if (newAction != null)newAction.onClick(null);
+            }
         });
         ongoing.setTaskListener(new TasksView.OnTaskSelectionListener() {
             @Override
@@ -123,13 +136,19 @@ public class ScrumBoardFragment extends ScrumFragment<TaskList> {
 
                 popupWindows[1].showAtLocation(relativeLayout, Gravity.NO_GRAVITY, loc[0], loc[1]);
             }
+
+            @Override
+            public void notaskSelected() {
+
+            }
         });
         Button btnEdit = (Button)popupViews[0].findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 popupWindows[0].dismiss();
-                editAction.onClick(view);
+                if (editAction != null)
+                    editAction.onClick(view);
             }
         });
         Button btnPromote= (Button)popupViews[0].findViewById(R.id.btnPromote);
@@ -137,7 +156,7 @@ public class ScrumBoardFragment extends ScrumFragment<TaskList> {
             @Override
             public void onClick(View view) {
                 popupWindows[0].dismiss();
-                promoteAction.onClick(view);
+                if (editAction != null) promoteAction.onClick(view);
             }
         });
         Button btnDiscard= (Button)popupViews[1].findViewById(R.id.btnDiscard);

@@ -106,6 +106,11 @@ public class ScrumProjectsFragment extends ScrumFragment<TaskList> {
 
                 popupWindows[0].showAtLocation(relativeLayout, Gravity.NO_GRAVITY, loc[0], loc[1]);
             }
+
+            @Override
+            public void notaskSelected() {
+
+            }
         });
         ongoing.setTaskListener(new TasksView.OnTaskSelectionListener() {
             @Override
@@ -114,6 +119,11 @@ public class ScrumProjectsFragment extends ScrumFragment<TaskList> {
                 ongoing.getLocationOnScreen(loc);
 
                 popupWindows[1].showAtLocation(relativeLayout, Gravity.NO_GRAVITY, loc[0], loc[1]);
+            }
+
+            @Override
+            public void notaskSelected() {
+
             }
         });
         Button btnEdit = (Button)popupViews[0].findViewById(R.id.btnEdit);

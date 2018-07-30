@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AbstractTask implements Task {
-    private TaskStates state;
+    private TaskStates state = TaskStates.BACKLOG;
     private String name;
     private String description;
     private Date startDate;

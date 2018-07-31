@@ -24,11 +24,6 @@ public class DemoObjectFragment extends NamedFragment {
         Bundle args = getArguments();
         TextView tv = ((TextView) rootView.findViewById(R.id.demotext_1));
         String arg = "demo";
-        try{
-            arg = Integer.toString(args.getInt(ARG_OBJECT));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         tv.setText(
                 arg);
         return rootView;

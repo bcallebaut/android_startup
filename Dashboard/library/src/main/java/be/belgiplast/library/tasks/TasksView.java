@@ -111,7 +111,7 @@ public class TasksView extends RelativeLayout {
             });
             adapter = new TasksRecyclerViewAdapter(context, tasks);
             recyclerView.setAdapter(adapter);
-            this.setOnTouchListener(new OnTouchListener(){
+            recyclerView.setOnTouchListener(new OnTouchListener(){
 
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {

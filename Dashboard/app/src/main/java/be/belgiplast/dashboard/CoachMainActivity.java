@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import be.belgiplast.library.Action;
+import be.belgiplast.library.ResourceAction;
 import be.belgiplast.library.tasks.Task;
 import be.belgiplast.dashboard.tasks.EditTaskActivity;
 import be.belgiplast.library.tasks.TasksView;
@@ -21,6 +23,8 @@ import be.belgiplast.library.tasks.TasksView;
 public class CoachMainActivity extends FragmentActivity {
     DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
     ViewPager mViewPager;
+
+    private Action newAction;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,17 @@ public class CoachMainActivity extends FragmentActivity {
                         getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+
+        newAction = new ResourceAction("new Task", -1) {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CoachMainActivity.this, NewTaskActivity.class);
+                CoachMainActivity.this.startActivity(intent);
+            }
+        };
+
+        mDemoCollectionPagerAdapter.setNewAction(newAction);
+
 
         /*
         setContentView(R.layout.activity_coach_main);

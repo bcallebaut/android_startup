@@ -44,6 +44,8 @@ class TasksRecyclerViewAdapter extends RecyclerView.Adapter<TasksRecyclerViewAda
         super.notifyDataSetChanged();
     }
 
+
+
     // total number of cells
     @Override
     public int getItemCount() {

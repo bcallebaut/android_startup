@@ -3,6 +3,7 @@ package be.belgiplast.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -71,8 +72,8 @@ public class ScrumBoardFragment extends ScrumFragment<TaskList> {
         return newAction;
     }
 
-    public void setNewAction(Action editAction) {
-        this.editAction = newAction;
+    public void setNewAction(Action newAction) {
+        this.newAction = newAction;
     }
 
     @Override
@@ -125,6 +126,7 @@ public class ScrumBoardFragment extends ScrumFragment<TaskList> {
 
             @Override
             public void notaskSelected() {
+                Log.w("DEBUG","BAcklog notask called");
                 if (newAction != null)newAction.onClick(null);
             }
         });
@@ -139,7 +141,8 @@ public class ScrumBoardFragment extends ScrumFragment<TaskList> {
 
             @Override
             public void notaskSelected() {
-
+                Log.w("DEBUG","ongoing notask called");
+                if (newAction != null)newAction.onClick(null);
             }
         });
         Button btnEdit = (Button)popupViews[0].findViewById(R.id.btnEdit);

@@ -41,6 +41,10 @@ public class AbstractTask implements Task {
             state = TaskStates.ONGOING;
     }
 
+    public void setState(TaskStates state) {
+        this.state = state;
+    }
+
     @Override
     public boolean canPromote() {
         return state == TaskStates.BACKLOG || state == TaskStates.ONGOING;

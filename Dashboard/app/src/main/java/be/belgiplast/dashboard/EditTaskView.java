@@ -1,6 +1,9 @@
 package be.belgiplast.dashboard;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -12,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import be.belgiplast.library.properties.PropertyDialogs;
 import be.belgiplast.library.tasks.AbstractTask;
 import be.belgiplast.library.tasks.Task;
 
@@ -28,7 +33,7 @@ public class EditTaskView extends RelativeLayout {
         this(context, attrs, 0);
     }
 
-    public EditTaskView(Context context, AttributeSet attrs, int defStyle) {
+    public EditTaskView(final Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 //        init(attrs, defStyle);
         setGravity(Gravity.TOP);
@@ -53,6 +58,20 @@ public class EditTaskView extends RelativeLayout {
             public void afterTextChanged(Editable editable) {
                 if (task != null)
                     task.setName(editable.toString());
+            }
+        });
+
+        RecyclerView rv = (RecyclerView)v.findViewById(R.id.rv_tasks_props_view);
+        final String[] names = new String[]{"name", "date"};
+        nameEdit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PropertyDialogs.showPropertyNameDialog((Activity) context, names, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(context,"Test successful " + names[i],Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }

@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         // Example of a call to a native method
         RelativeLayout tv = (RelativeLayout) findViewById(R.id.insert);
         DynamicMenu mnu = new DynamicMenu(this);

@@ -3,6 +3,7 @@ package be.belgiplast.library.properties;
 public final class Property {
     private String name;
     private String value;
+    private String group;
     private String type;
 
     public String getName() {
@@ -27,5 +28,13 @@ public final class Property {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 }

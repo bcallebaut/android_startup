@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.belgiplast.library.properties.Property;
-import be.belgiplast.notes.model.BaseNote;
-import be.belgiplast.notes.model.Note;
 
 public class AbstractPropertiesHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
@@ -45,15 +43,16 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public long insertTask(Note task){
+    public long insertProperty(Property task){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         // `id` and `timestamp` will be inserted automatically.
         // no need to add them
-        values.put(PropertiesColumns.COLUMN_NAME_ID, task.getId());
-        values.put(PropertiesColumns.COLUMN_NAME_TEXT, task.getText());
-        values.put(PropertiesColumns.COLUMN_NAME_TIMESTAMP, task.getTimestamp().toString());
+        values.put(PropertiesColumns.COLUMN_NAME_ID, task.getName());
+        values.put(PropertiesColumns.COLUMN_NAME_GROUP, task.getGroup());
+        values.put(PropertiesColumns.COLUMN_NAME_VALUE, task.getValue());
+        values.put(PropertiesColumns.COLUMN_NAME_TYPE, task.getType());
 
 
 
@@ -71,7 +70,7 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(PropertiesColumns.TABLE_NAME,
-                new String[]{PropertiesColumns.TABLE_NAME, PropertiesColumns.COLUMN_NAME_ID, PropertiesColumns.COLUMN_NAME_TEXT, PropertiesColumns.COLUMN_NAME_TIMESTAMP},
+                new String[]{PropertiesColumns.TABLE_NAME, PropertiesColumns.COLUMN_NAME_ID, PropertiesColumns.COLUMN_NAME_GROUP, PropertiesColumns.COLUMN_NAME_VALUE,PropertiesColumns.COLUMN_NAME_TYPE},
                 PropertiesColumns._ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -79,10 +78,12 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         // prepare note object
-        Note note = new BaseNote();
-        note.setId(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_ID)));
-        note.setText(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_TEXT)));
-        note.setTimestamp(Date.valueOf(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_TIMESTAMP))));
+        Property note = new Property();
+        note.setName(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_ID)));
+        note.setValue(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_VALUE)));
+        note.setGroup(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_GROUP)));
+        note.setType(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_TYPE)));
+
 
         // close the db connection
         cursor.close();
@@ -90,8 +91,8 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
         return note;
     }
 
-    public List<Note> getAllNotes() {
-        List<Note> notes = new ArrayList<>();
+    public List<Property> getAllNotes() {
+        List<Property> notes = new ArrayList<>();
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + PropertiesColumns.TABLE_NAME + " ORDER BY " +
@@ -103,10 +104,11 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Note note = new BaseNote();
-                note.setId(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_ID)));
-                note.setText(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_TEXT)));
-                note.setTimestamp(Date.valueOf(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_TIMESTAMP))));
+                Property note = new Property();
+                note.setName(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_ID)));
+                note.setValue(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_VALUE)));
+                note.setGroup(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_GROUP)));
+                note.setType(cursor.getString(cursor.getColumnIndex(PropertiesColumns.COLUMN_NAME_TYPE)));
 
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -132,23 +134,24 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public int updateNote(Note task) {
+    public int updateNote(Property task) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(PropertiesColumns.COLUMN_NAME_ID, task.getId());
-        values.put(PropertiesColumns.COLUMN_NAME_TEXT, task.getText());
-        values.put(PropertiesColumns.COLUMN_NAME_TIMESTAMP, task.getTimestamp().toString());
+        values.put(PropertiesColumns.COLUMN_NAME_ID, task.getName());
+        values.put(PropertiesColumns.COLUMN_NAME_VALUE, task.getValue());
+        values.put(PropertiesColumns.COLUMN_NAME_GROUP, task.getGroup());
+        values.put(PropertiesColumns.COLUMN_NAME_TYPE, task.getType());
 
         // updating row
         return db.update(PropertiesColumns.TABLE_NAME, values, PropertiesColumns._ID + " = ?",
-                new String[]{String.valueOf(task.getId())});
+                new String[]{String.valueOf(task.getName())});
     }
 
-    public void deleteNote(Note task) {
+    public void deleteNote(Property task) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(PropertiesColumns.TABLE_NAME, PropertiesColumns._ID + " = ?",
-                new String[]{String.valueOf(task.getId())});//TODO: Change this. Tsk has no id
+                new String[]{String.valueOf(task.getName())});//TODO: Change this. Tsk has no id
         db.close();
     }
 }

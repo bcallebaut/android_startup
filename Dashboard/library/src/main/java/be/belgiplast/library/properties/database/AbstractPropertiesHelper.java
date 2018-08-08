@@ -16,25 +16,28 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "properties.db";
 
-    protected final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + "%s" + " (" +
-                    PropertiesColumns._ID + " INTEGER PRIMARY KEY," +
-                    PropertiesColumns.COLUMN_NAME_ID + " TEXT," +
-                    PropertiesColumns.COLUMN_NAME_GROUP + " TEXT," +
-                    PropertiesColumns.COLUMN_NAME_VALUE + " TEXT," +
-                    PropertiesColumns.COLUMN_NAME_TYPE + " TEXT" +
-                    ")";
-    private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + "%s";
+    private final String SQL_CREATE_ENTRIES;
+    private final String SQL_DELETE_ENTRIES;
 
-    public AbstractPropertiesHelper(Context context) {
+    private String tableName;
+    private String group;
+
+    public AbstractPropertiesHelper(Context context,String tablename,String group) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.tableName = tablename;
+        SQL_CREATE_ENTRIES = String.format( "CREATE TABLE " + "%s" + " (" +
+                PropertiesColumns._ID + " INTEGER PRIMARY KEY," +
+                PropertiesColumns.COLUMN_NAME_ID + " TEXT," +
+                PropertiesColumns.COLUMN_NAME_GROUP + " TEXT," +
+                PropertiesColumns.COLUMN_NAME_VALUE + " TEXT," +
+                PropertiesColumns.COLUMN_NAME_TYPE + " TEXT" +
+                ")",tableName);
+        SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS " + "%s",tableName);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
-
     }
 
     @Override
@@ -69,8 +72,8 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
     public Property getProperty(long id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(PropertiesColumns.TABLE_NAME,
-                new String[]{PropertiesColumns.TABLE_NAME, PropertiesColumns.COLUMN_NAME_ID, PropertiesColumns.COLUMN_NAME_GROUP, PropertiesColumns.COLUMN_NAME_VALUE,PropertiesColumns.COLUMN_NAME_TYPE},
+        Cursor cursor = db.query(tableName,
+                new String[]{tableName, PropertiesColumns.COLUMN_NAME_ID, PropertiesColumns.COLUMN_NAME_GROUP, PropertiesColumns.COLUMN_NAME_VALUE,PropertiesColumns.COLUMN_NAME_TYPE},
                 PropertiesColumns._ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -122,7 +125,7 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
     }
 
     public int getTasksCount() {
-        String countQuery = "SELECT  * FROM " + PropertiesColumns.TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + tableName;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -150,7 +153,7 @@ public class AbstractPropertiesHelper extends SQLiteOpenHelper {
 
     public void deleteNote(Property task) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(PropertiesColumns.TABLE_NAME, PropertiesColumns._ID + " = ?",
+        db.delete(tableName, PropertiesColumns._ID + " = ?",
                 new String[]{String.valueOf(task.getName())});//TODO: Change this. Tsk has no id
         db.close();
     }

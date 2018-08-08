@@ -7,11 +7,11 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/notes" />
-            <option value="$PROJECT_DIR$/private" />
+            <option value="$PROJECT_DIR$/../../../../../../../../sdc1/home/benoit/git/benoit/android/android_startup/Dashboard" />
+            <option value="$PROJECT_DIR$/../../../../../../../../sdc1/home/benoit/git/benoit/android/android_startup/Dashboard/app" />
+            <option value="$PROJECT_DIR$/../../../../../../../../sdc1/home/benoit/git/benoit/android/android_startup/Dashboard/library" />
+            <option value="$PROJECT_DIR$/../../../../../../../../sdc1/home/benoit/git/benoit/android/android_startup/Dashboard/notes" />
+            <option value="$PROJECT_DIR$/../../../../../../../../sdc1/home/benoit/git/benoit/android/android_startup/Dashboard/private" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

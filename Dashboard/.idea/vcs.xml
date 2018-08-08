@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../../../../../../../sdc1/home/benoit/git/benoit/android/android_startup" vcs="Git" />
   </component>
 </project>

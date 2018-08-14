@@ -1,2 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="be.belgiplast.library" />
+    package="be.belgiplast.library">
+
+    <application
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        >
+        <activity android:name=".navdrawer.NavDrawerActivity"></activity>
+    </application>
+
+</manifest>

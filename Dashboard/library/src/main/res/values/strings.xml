@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Library</string>
+    <string name="imports">Import</string>
+    <string name="gallery">LGallery</string>
+    <string name="slideshow">Slideshow</string>
+    <string name="tools">Slideshow</string>
 </resources>
